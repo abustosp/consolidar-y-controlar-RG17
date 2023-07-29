@@ -1,0 +1,1 @@
+cat rg*.txt | sc Consolidado_con_Ps.txt
