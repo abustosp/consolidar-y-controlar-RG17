@@ -52,13 +52,13 @@ def Procesar_TXT_Consolidados():
     CertificadosIVA = CertificadosIVA.drop_duplicates(subset=['CUIT' , 'Desde Periodo'] , keep='last')
 
     # Crear columna con el numero actual de veces que se repite el CUIT si el indice es menor al actual
-    CertificadosIVA['Ajuste'] = CertificadosIVA['CUIT'].astype(str) + ' - ' + (CertificadosIVA.groupby('CUIT').cumcount() + 1).astype(str)
+    CertificadosIVA['Ajuste'] = CertificadosIVA['CUIT'].astype(str) + '-' + (CertificadosIVA.groupby('CUIT').cumcount() + 1).astype(str)
 
     # Ordenar las columnas en el siguiente orden 'Ajuste' , 'CUIT' , 'Denominación' , 'Desde RG17' , 'Hasta RG17' , '% No ret' , 'Motivo RG17' , 'Desde Periodo' , 'Hasta Periodo'
     CertificadosIVA = CertificadosIVA[['Ajuste' , 'CUIT' , 'Denominación' , 'Desde RG17' , 'Hasta RG17' , '% No ret' , 'Motivo RG17' , 'Desde Periodo' , 'Hasta Periodo']]
 
     #Exportar archivo
-    CertificadosIVA.to_csv("Consolidado procesado.csv" , index=False , encoding="latin1" , sep=";" )
+    CertificadosIVA.to_csv("Consolidado procesado.csv" , index=False , encoding="latin1" , sep="|" )
 
 if __name__ == "__main__":
     Consolidar_TXT("Archivos")
